@@ -16,5 +16,25 @@ namespace LabColasPrioridad
         {
             InitializeComponent();
         }
+
+        private void BTsiguiente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BTorden_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

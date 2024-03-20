@@ -26,15 +26,26 @@ namespace LabColasPrioridad
 
         private void BTsiguiente_Click(object sender, EventArgs e)
         {
+            if (pacientes.Count > 0)
+            {
+                Paciente siguientePaciente = pacientes.OrderBy(p => p.Prioridad).First();
 
+                MessageBox.Show($"Siguiente paciente a atender:\n\nNombre: {siguientePaciente.Nombre}\nEnfermedad: {siguientePaciente.Enfermedad}\nTipo de Sangre: {siguientePaciente.TipoSangre}\nPrioridad: {siguientePaciente.Prioridad}");
+
+                pacientes.Remove(siguientePaciente);
+
+                ActualizarListaPacientes();
+            }
+            else
+            {
+                MessageBox.Show("No hay pacientes en la lista.");
+            }
         }
 
         private void BTorden_Click(object sender, EventArgs e)
         {
-            // Limpia el ListBox
             LBListaPacientes.Items.Clear();
 
-            // Agrega cada paciente ordenado por prioridad al ListBox
             foreach (var paciente in pacientes.OrderBy(p => p.Prioridad))
             {
                 LBListaPacientes.Items.Add($"Nombre: {paciente.Nombre}, Enfermedad: {paciente.Enfermedad}, Tipo de Sangre: {paciente.TipoSangre}, Tiempo de Registro: {paciente.TiempoRegistro}, Prioridad: {paciente.Prioridad}");
@@ -53,25 +64,20 @@ namespace LabColasPrioridad
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            // Captura el nombre, enfermedad y tipo de sangre del formulario
             string nombre = TBnombre.Text;
             string enfermedad = CBEnfermedades.SelectedItem.ToString();
             string tipoSangre = TBSangre.Text;
 
-            // Asigna prioridad según la enfermedad
             int prioridad = AsignarPrioridad(enfermedad);
 
-            // Crea un nuevo paciente y agrega la hora actual como tiempo de registro
             Paciente nuevoPaciente = new Paciente(nombre, enfermedad, tipoSangre, DateTime.Now, prioridad);
             pacientes.Add(nuevoPaciente);
 
-            // Actualiza la lista de pacientes en el ListBox
             ActualizarListaPacientes();
         }
 
         private int AsignarPrioridad(string enfermedad)
         {
-            // Asigna prioridad según la enfermedad
             switch (enfermedad)
             {
                 case "Fiebre alta":
@@ -83,15 +89,13 @@ namespace LabColasPrioridad
                 case "Problema cardiaco":
                     return 1;
                 default:
-                    return 3; // Por defecto, si no se reconoce la enfermedad, se asigna la menor prioridad
+                    return 3; 
             }
         }
         private void ActualizarListaPacientes()
         {
-            // Limpia el ListBox
             LBListaPacientes.Items.Clear();
 
-            // Agrega cada paciente ordenado por registro al ListBox
             foreach (var paciente in pacientes.OrderBy(p => p.TiempoRegistro))
             {
                 LBListaPacientes.Items.Add($"Nombre: {paciente.Nombre}, Enfermedad: {paciente.Enfermedad}, Tipo de Sangre: {paciente.TipoSangre}, Tiempo de Registro: {paciente.TiempoRegistro}, Prioridad: {paciente.Prioridad}");
@@ -100,7 +104,6 @@ namespace LabColasPrioridad
 
         private void btnOrdenOriginal_Click(object sender, EventArgs e)
         {
-            // Actualiza la lista de pacientes ordenada por registro
             ActualizarListaPacientes();
         }
     }

@@ -31,7 +31,14 @@ namespace LabColasPrioridad
 
         private void BTorden_Click(object sender, EventArgs e)
         {
+            // Limpia el ListBox
+            LBListaPacientes.Items.Clear();
 
+            // Agrega cada paciente ordenado por prioridad al ListBox
+            foreach (var paciente in pacientes.OrderBy(p => p.Prioridad))
+            {
+                LBListaPacientes.Items.Add($"Nombre: {paciente.Nombre}, Enfermedad: {paciente.Enfermedad}, Tipo de Sangre: {paciente.TipoSangre}, Tiempo de Registro: {paciente.TiempoRegistro}, Prioridad: {paciente.Prioridad}");
+            }
         }
 
         private void label8_Click(object sender, EventArgs e)
@@ -51,26 +58,50 @@ namespace LabColasPrioridad
             string enfermedad = CBEnfermedades.SelectedItem.ToString();
             string tipoSangre = TBSangre.Text;
 
+            // Asigna prioridad según la enfermedad
+            int prioridad = AsignarPrioridad(enfermedad);
+
             // Crea un nuevo paciente y agrega la hora actual como tiempo de registro
-            Paciente nuevoPaciente = new Paciente(nombre, enfermedad, tipoSangre, DateTime.Now);
+            Paciente nuevoPaciente = new Paciente(nombre, enfermedad, tipoSangre, DateTime.Now, prioridad);
             pacientes.Add(nuevoPaciente);
 
-            // Ordena la lista de pacientes por tiempo de registro
-            pacientes = pacientes.OrderBy(p => p.TiempoRegistro).ToList();
-
-            // Actualiza el ListBox con la lista de pacientes
-            ActualizarListBoxPacientes();
+            // Actualiza la lista de pacientes en el ListBox
+            ActualizarListaPacientes();
         }
-        private void ActualizarListBoxPacientes()
+
+        private int AsignarPrioridad(string enfermedad)
+        {
+            // Asigna prioridad según la enfermedad
+            switch (enfermedad)
+            {
+                case "Fiebre alta":
+                    return 3;
+                case "Fractura expuesta":
+                case "Intoxicación":
+                case "Dolor de oído":
+                    return 2;
+                case "Problema cardiaco":
+                    return 1;
+                default:
+                    return 3; // Por defecto, si no se reconoce la enfermedad, se asigna la menor prioridad
+            }
+        }
+        private void ActualizarListaPacientes()
         {
             // Limpia el ListBox
             LBListaPacientes.Items.Clear();
 
-            // Agrega cada paciente al ListBox
-            foreach (var paciente in pacientes)
+            // Agrega cada paciente ordenado por registro al ListBox
+            foreach (var paciente in pacientes.OrderBy(p => p.TiempoRegistro))
             {
-                LBListaPacientes.Items.Add($"Nombre: {paciente.Nombre}, Enfermedad: {paciente.Enfermedad}, Tipo de Sangre: {paciente.TipoSangre}, Tiempo de Registro: {paciente.TiempoRegistro}");
+                LBListaPacientes.Items.Add($"Nombre: {paciente.Nombre}, Enfermedad: {paciente.Enfermedad}, Tipo de Sangre: {paciente.TipoSangre}, Tiempo de Registro: {paciente.TiempoRegistro}, Prioridad: {paciente.Prioridad}");
             }
+        }
+
+        private void btnOrdenOriginal_Click(object sender, EventArgs e)
+        {
+            // Actualiza la lista de pacientes ordenada por registro
+            ActualizarListaPacientes();
         }
     }
 
@@ -80,14 +111,15 @@ namespace LabColasPrioridad
         public string Enfermedad { get; }
         public string TipoSangre { get; }
         public DateTime TiempoRegistro { get; }
+        public int Prioridad { get; }
 
-        public Paciente(string nombre, string enfermedad, string tipoSangre, DateTime tiempoRegistro)
+        public Paciente(string nombre, string enfermedad, string tipoSangre, DateTime tiempoRegistro, int prioridad)
         {
-            
             Nombre = nombre;
             Enfermedad = enfermedad;
             TipoSangre = tipoSangre;
             TiempoRegistro = tiempoRegistro;
+            Prioridad = prioridad;
         }
     }
 }

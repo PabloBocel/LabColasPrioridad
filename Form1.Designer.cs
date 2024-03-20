@@ -176,6 +176,7 @@
             this.btnOrdenOriginal.TabIndex = 16;
             this.btnOrdenOriginal.Text = "Mostrar";
             this.btnOrdenOriginal.UseVisualStyleBackColor = true;
+            this.btnOrdenOriginal.Click += new System.EventHandler(this.btnOrdenOriginal_Click);
             // 
             // groupBox1
             // 
@@ -191,7 +192,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1256, 327);
+            this.groupBox1.Size = new System.Drawing.Size(1511, 327);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Formulario";
@@ -212,7 +213,7 @@
             this.LBListaPacientes.ItemHeight = 16;
             this.LBListaPacientes.Location = new System.Drawing.Point(523, 36);
             this.LBListaPacientes.Name = "LBListaPacientes";
-            this.LBListaPacientes.Size = new System.Drawing.Size(712, 244);
+            this.LBListaPacientes.Size = new System.Drawing.Size(982, 244);
             this.LBListaPacientes.TabIndex = 11;
             // 
             // CBEnfermedades
@@ -229,7 +230,7 @@
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureBox1.Location = new System.Drawing.Point(1313, 171);
+            this.pictureBox1.Location = new System.Drawing.Point(1567, 171);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(211, 225);
@@ -240,7 +241,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1536, 654);
+            this.ClientSize = new System.Drawing.Size(1830, 654);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnOrdenOriginal);
